@@ -10,6 +10,7 @@ public static class Startup
     public static void AddDataDependencies(this IServiceCollection services, string connectionString)
     {
         services.AddDbContext<GetFitDbContext>(options => options.UseSqlServer(connectionString));
+        services.AddScoped<IGetFitDbContext, GetFitDbContext>();
 
         services.AddScoped<IActivityRepository, ActivityRepository>();
         services.AddScoped<IActivitySignUpRepository, ActivitySignUpRepository>();

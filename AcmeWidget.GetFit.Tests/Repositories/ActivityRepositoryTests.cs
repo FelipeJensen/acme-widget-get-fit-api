@@ -10,10 +10,12 @@ namespace AcmeWidget.GetFit.Tests.Repositories;
 public class ActivityRepositoryTests
 {
     private readonly Faker _faker;
+    private readonly FakeGenerator _fakeGenerator;
 
     public ActivityRepositoryTests()
     {
         _faker = new Faker();
+        _fakeGenerator = new FakeGenerator();
     }
 
     [Fact]
@@ -45,7 +47,7 @@ public class ActivityRepositoryTests
     }
 
     [Fact]
-    public async Task FindAsync_with_existing_entity_returns_entity()
+    public async Task Get_with_existing_entity_returns_entity()
     {
         var activity = new Activity(_faker.Random.Word());
 
@@ -57,6 +59,21 @@ public class ActivityRepositoryTests
         var actual = await activityRepository.Get(activity.Id);
 
         Assert.Equal(activity, actual);
+    }
+
+    [Fact]
+    public async Task Get_with_non_existing_entity_returns_null()
+    {
+        var activity = new Activity(_faker.Random.Word());
+
+        var contextMock = new Mock<IGetFitDbContext>();
+        contextMock.Setup(p => p.FindAsync<Activity, long>(activity.Id)).ReturnsAsync(() => null);
+
+        var activityRepository = new ActivityRepository(contextMock.Object);
+
+        var actual = await activityRepository.Get(activity.Id);
+
+        Assert.Null(actual);
     }
 
     [Fact]
@@ -130,5 +147,35 @@ public class ActivityRepositoryTests
         var actual = activityRepository.ActivityDates(activity.Id);
 
         Assert.Equal(activity.ActivityDates, actual);
+    }
+
+    [Fact]
+    public async Task GetDate_with_existing_entity_returns_entity()
+    {
+        var activityDate = _fakeGenerator.ActivityDate;
+
+        var contextMock = new Mock<IGetFitDbContext>();
+        contextMock.Setup(p => p.FindAsync<ActivityDate, long>(activityDate.Id)).ReturnsAsync(activityDate);
+
+        var activityRepository = new ActivityRepository(contextMock.Object);
+
+        var actual = await activityRepository.GetDate(activityDate.Id);
+
+        Assert.Equal(activityDate, actual);
+    }
+
+    [Fact]
+    public async Task GetDate_with_non_existing_entity_returns_null()
+    {
+        var activityDate = _fakeGenerator.ActivityDate;
+
+        var contextMock = new Mock<IGetFitDbContext>();
+        contextMock.Setup(p => p.FindAsync<Activity, long>(activityDate.Id)).ReturnsAsync(() => null);
+
+        var activityRepository = new ActivityRepository(contextMock.Object);
+
+        var actual = await activityRepository.Get(activityDate.Id);
+
+        Assert.Null(actual);
     }
 }

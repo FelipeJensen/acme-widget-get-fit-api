@@ -11,4 +11,5 @@ public interface IActivityRepository
     Task Persist();
     IEnumerable<Lookup<long>> Lookup();
     IEnumerable<ActivityDate?> ActivityDates(long id);
+    Task<ActivityDate?> GetDate(long activityDateId);
 }

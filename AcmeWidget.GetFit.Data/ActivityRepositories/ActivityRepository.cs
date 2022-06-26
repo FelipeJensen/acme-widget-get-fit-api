@@ -36,4 +36,6 @@ public class ActivityRepository : IActivityRepository
 
         return lookups;
     }
+
+    public Task<ActivityDate?> GetDate(long activityDateId) => _context.FindAsync<ActivityDate, long>(activityDateId);
 }

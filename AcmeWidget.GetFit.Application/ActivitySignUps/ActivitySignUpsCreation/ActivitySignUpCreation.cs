@@ -1,4 +1,5 @@
 ﻿using AcmeWidget.GetFit.Application.ActivitySignUps.Dtos;
+using AcmeWidget.GetFit.Data.ActivityRepositories;
 using AcmeWidget.GetFit.Data.ActivitySignUpRepositories;
 using AcmeWidget.GetFit.Domain.ActivitySignups;
 using AcmeWidget.GetFit.Domain.ResultHandling;
@@ -8,10 +9,12 @@ namespace AcmeWidget.GetFit.Application.ActivitySignUps.ActivitySignUpsCreation;
 public class ActivitySignUpCreation : IActivitySignUpCreation
 {
     private readonly IActivitySignUpRepository _repository;
+    private readonly IActivityRepository _activityRepository;
 
-    public ActivitySignUpCreation(IActivitySignUpRepository repository)
+    public ActivitySignUpCreation(IActivitySignUpRepository repository, IActivityRepository activityRepository)
     {
         _repository = repository;
+        _activityRepository = activityRepository;
     }
 
     public async Task<Result> Create(CreateActivitySignUp createSignUp)
@@ -19,15 +22,15 @@ public class ActivitySignUpCreation : IActivitySignUpCreation
         var validation = createSignUp.Validate();
         if (validation.Any()) return new Result(validation);
 
-        var activity = await _repository.GetActivity(createSignUp.ActivityId);
+        var activity = await _activityRepository.Get(createSignUp.ActivityId);
 
         if (activity == null) return new Result(Errors.General.NotFound(nameof(Errors.Activity)));
 
-        var activityDate = await _repository.GetActivityDate(createSignUp.ActivityDateId);
+        var activityDate = await _activityRepository.GetDate(createSignUp.ActivityDateId);
 
         if (activityDate == null) return new Result(Errors.General.NotFound(nameof(Errors.ActivityDate)));
 
-        if (await AlreadySignedUp(createSignUp)) return new Result(Errors.ActivitySignUp.AlreadySignedUp(createSignUp.Email, activity.Name));
+        if (AlreadySignedUp(createSignUp)) return new Result(Errors.ActivitySignUp.AlreadySignedUp(createSignUp.Email, activity.Name));
 
         var activitySignUp = new ActivitySignUp(
             createSignUp.FirstName,
@@ -48,8 +51,8 @@ public class ActivitySignUpCreation : IActivitySignUpCreation
         return new Result();
     }
 
-    private async Task<bool> AlreadySignedUp(CreateActivitySignUp createSignUp)
+    private bool AlreadySignedUp(CreateActivitySignUp createSignUp)
     {
-        return await _repository.Exists(createSignUp.Email, createSignUp.ActivityId);
+        return _repository.Exists(createSignUp.Email, createSignUp.ActivityId);
     }
 }
