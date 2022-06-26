@@ -3,7 +3,7 @@
 public class Result
 {
     public bool Success { get; private set; }
-    public List<Error> Error { get; private set; } = new();
+    public List<Error> Errors { get; private set; } = new();
 
     public Result()
     {
@@ -13,13 +13,13 @@ public class Result
     public Result(Error error)
     {
         Success = false;
-        Error = new List<Error> { error };
+        Errors = new List<Error> { error };
     }
 
-    public Result(List<Error> error)
+    public Result(List<Error> errors)
     {
         Success = false;
-        Error = error;
+        Errors = errors;
     }
 }
 

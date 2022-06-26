@@ -32,7 +32,7 @@ public class ActivityCreation : IActivityCreation
 
             if (results.Any(p => !p.Success))
             {
-                return new Result(results.Where(p => !p.Success).SelectMany(p => p.Error).ToList());
+                return new Result(results.Where(p => !p.Success).SelectMany(p => p.Errors).ToList());
             }
 
             foreach (var activityDate in results.Select(p => p.Value!))

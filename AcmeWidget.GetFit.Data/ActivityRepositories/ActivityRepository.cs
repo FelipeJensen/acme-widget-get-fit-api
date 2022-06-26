@@ -19,5 +19,9 @@ public class ActivityRepository : IActivityRepository
 
     public Task Add(Activity activity) => _context.AddAsync(activity).AsTask();
 
+    public Task<Activity?> Get(long id) => _context.Activities.FindAsync(id).AsTask();
+
+    public void Delete(Activity activity) => _context.Activities.Remove(activity);
+
     public Task Persist() => _context.SaveChangesAsync();
 }

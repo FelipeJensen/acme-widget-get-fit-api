@@ -5,8 +5,11 @@ public static class Errors
     public static class General
     {
         public const string EntityAlreadyExistsCode = "entity.already.exists";
+        public const string EntityNotFoundCode = "entity.not.found";
 
         public static Error EntityAlreadyExists(string entity) => new(EntityAlreadyExistsCode, $"{entity} already exists.");
+
+        public static Error NotFound(string entity) => new(EntityNotFoundCode, $"{entity} not found.");
     }
 
     public static class Activity

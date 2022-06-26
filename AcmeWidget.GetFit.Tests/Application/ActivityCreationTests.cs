@@ -32,7 +32,7 @@ public class ActivityCreationTests
         var result = await activityCreation.Create(createActivity);
 
         Assert.False(result.Success);
-        Assert.Equal(Errors.Activity.ActivityNameEmptyCode, result.Error.Single().Code);
+        Assert.Equal(Errors.Activity.ActivityNameEmptyCode, result.Errors.Single().Code);
     }
 
     [Fact]
@@ -46,7 +46,7 @@ public class ActivityCreationTests
         var result = await activityCreation.Create(createActivity);
 
         Assert.False(result.Success);
-        Assert.Equal(Errors.General.EntityAlreadyExists(nameof(Errors.Activity)).Code, result.Error.Single().Code);
+        Assert.Equal(Errors.General.EntityAlreadyExists(nameof(Errors.Activity)).Code, result.Errors.Single().Code);
     }
 
     [Fact]
@@ -61,7 +61,7 @@ public class ActivityCreationTests
         var result = await activityCreation.Create(createActivity);
 
         Assert.False(result.Success);
-        Assert.Equal(Errors.ActivityDate.StartDateAfterEndDateCode, result.Error.First().Code);
+        Assert.Equal(Errors.ActivityDate.StartDateAfterEndDateCode, result.Errors.First().Code);
     }
 
     [Fact]

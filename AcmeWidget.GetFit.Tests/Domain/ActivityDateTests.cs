@@ -40,7 +40,7 @@ public class ActivityDateTests
         var result = ActivityDate.Build(startDate, endDate, _faker.PickRandom(ActivityFrequency.Daily, ActivityFrequency.Weekly, ActivityFrequency.Monthly), activity);
 
         Assert.False(result.Success);
-        Assert.Equal(Errors.ActivityDate.StartDateAfterEndDateCode, result.Error.Single().Code);
+        Assert.Equal(Errors.ActivityDate.StartDateAfterEndDateCode, result.Errors.Single().Code);
     }
 
     [Fact]
@@ -53,6 +53,6 @@ public class ActivityDateTests
         var result = ActivityDate.Build(startDate, null, ActivityFrequency.Period, activity);
 
         Assert.False(result.Success);
-        Assert.Equal(Errors.ActivityDate.PeriodFrequencyWithoutEndDateCode, result.Error.Single().Code);
+        Assert.Equal(Errors.ActivityDate.PeriodFrequencyWithoutEndDateCode, result.Errors.Single().Code);
     }
 }

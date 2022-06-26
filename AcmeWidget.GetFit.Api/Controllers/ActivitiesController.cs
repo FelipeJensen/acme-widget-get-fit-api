@@ -1,5 +1,6 @@
 ﻿using AcmeWidget.GetFit.Application.Activities.Dtos;
 using AcmeWidget.GetFit.Application.Activities.UseCases.ActivitiesCreation;
+using AcmeWidget.GetFit.Application.Activities.UseCases.ActivitiesDeletion;
 using AcmeWidget.GetFit.Domain.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,19 +11,26 @@ namespace AcmeWidget.GetFit.Api.Controllers;
 public class ActivitiesController : ControllerBase
 {
     private readonly ILogger<ActivitiesController> _logger;
+    private readonly ErrorResponseBuilder _errorResponseBuilder;
+
     private readonly IActivityCreation _activityCreation;
+    private readonly IActivityDeletion _activityDeletion;
 
-    private readonly BadRequestGenerator _badRequestGenerator;
-
-    public ActivitiesController(IActivityCreation activityCreation, ILogger<ActivitiesController> logger, BadRequestGenerator badRequestGenerator)
+    public ActivitiesController(
+        ILogger<ActivitiesController> logger,
+        IActivityCreation activityCreation,
+        ErrorResponseBuilder errorResponseBuilder,
+        IActivityDeletion activityDeletion)
     {
-        _activityCreation = activityCreation;
         _logger = logger;
-        _badRequestGenerator = badRequestGenerator;
+        _errorResponseBuilder = errorResponseBuilder;
+        _activityCreation = activityCreation;
+        _activityDeletion = activityDeletion;
     }
 
     [HttpPost]
-    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Create(CreateActivity createActivity)
     {
         _logger.LogBody(createActivity);
@@ -31,14 +39,27 @@ public class ActivitiesController : ControllerBase
 
         if (result.Success)
         {
-            return Ok();
+            return NoContent();
         }
 
-        foreach (var error in result.Error)
+        return _errorResponseBuilder.BadRequest(result, this);
+    }
+
+    [HttpDelete("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> Delete(long id)
+    {
+        _logger.LogInformation("Deleting activity {id}", id);
+
+        var result = await _activityDeletion.Delete(id);
+
+        if (result.Success)
         {
-            ModelState.AddModelError(error.Code, error.Message);
+            return NoContent();
         }
 
-        return _badRequestGenerator.BadRequest(ControllerContext);
+        return _errorResponseBuilder.BadRequest(result, this);
     }
 }

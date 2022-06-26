@@ -7,4 +7,6 @@ public interface IActivityRepository
     Task<bool> Exists(string name);
     Task Persist();
     Task Add(Activity activity);
+    Task<Activity?> Get(long id);
+    void Delete(Activity activity);
 }

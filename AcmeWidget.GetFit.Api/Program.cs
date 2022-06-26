@@ -16,7 +16,7 @@ builder.Services.AddSwagger();
 builder.Services.AddApplicationDependencies();
 builder.Services.AddDataDependencies(builder.Configuration.GetConnectionString("GetFit"));
 
-builder.Services.AddSingleton<BadRequestGenerator>();
+builder.Services.AddSingleton<ErrorResponseBuilder>();
 
 var app = builder.Build();
 
