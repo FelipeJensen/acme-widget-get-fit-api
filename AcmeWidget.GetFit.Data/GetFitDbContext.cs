@@ -1,4 +1,5 @@
 ﻿using AcmeWidget.GetFit.Domain.Activities;
+using AcmeWidget.GetFit.Domain.ActivitySignups;
 using Microsoft.EntityFrameworkCore;
 
 namespace AcmeWidget.GetFit.Data;
@@ -28,4 +29,5 @@ public class GetFitDbContext : DbContext
     }
 
     public DbSet<Activity> Activities { get; set; }
+    public DbSet<ActivitySignUp> ActivitySignUps { get; set; }
 }
