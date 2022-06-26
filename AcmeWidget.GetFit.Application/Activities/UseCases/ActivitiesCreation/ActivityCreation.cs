@@ -21,7 +21,7 @@ public class ActivityCreation : IActivityCreation
 
         if (await _repository.Exists(createActivity.Name))
         {
-            return new Result(Errors.General.EntityAlreadyExists());
+            return new Result(Errors.General.EntityAlreadyExists(nameof(Errors.Activity)));
         }
 
         var activity = new Activity(createActivity.Name);
@@ -35,7 +35,7 @@ public class ActivityCreation : IActivityCreation
                 return new Result(results.Where(p => !p.Success).SelectMany(p => p.Error).ToList());
             }
 
-            foreach (var activityDate in results.Select(p => p.Value))
+            foreach (var activityDate in results.Select(p => p.Value!))
             {
                 activity.AddDate(activityDate);
             }

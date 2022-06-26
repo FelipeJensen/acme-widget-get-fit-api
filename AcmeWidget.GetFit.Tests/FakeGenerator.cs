@@ -2,7 +2,7 @@
 using AcmeWidget.GetFit.Domain.Activities;
 using Bogus;
 
-namespace AcmeWidget.GetFit.Tests.Domain;
+namespace AcmeWidget.GetFit.Tests;
 
 public class FakeGenerator
 {

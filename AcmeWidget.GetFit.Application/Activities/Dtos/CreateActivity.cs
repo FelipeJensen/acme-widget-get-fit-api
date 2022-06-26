@@ -4,7 +4,7 @@ namespace AcmeWidget.GetFit.Application.Activities.Dtos;
 
 public class CreateActivity
 {
-    public string Name { get; set; }
+    public string Name { get; set; } = null!;
     public List<CreateActivityDate> Dates { get; set; } = new();
 
     public List<Error> Validate()

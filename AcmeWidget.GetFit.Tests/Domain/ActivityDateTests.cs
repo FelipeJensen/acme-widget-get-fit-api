@@ -24,7 +24,7 @@ public class ActivityDateTests
         var startDate = DateTime.Now;
         var endDate = startDate.AddDays(1);
 
-        var activityDate = ActivityDate.Build(startDate, endDate, frequency, activity).Value;
+        var activityDate = ActivityDate.Build(startDate, endDate, frequency, activity).Value!;
 
         Assert.Equal(ActivityFrequency.Period, activityDate.Frequency);
     }

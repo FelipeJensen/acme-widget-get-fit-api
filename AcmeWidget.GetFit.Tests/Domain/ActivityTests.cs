@@ -17,7 +17,7 @@ public class ActivityTests
     {
         var activity = new Activity(_faker.Random.Word());
 
-        var activityDate = ActivityDate.Build(DateTime.Now, DateTime.Now.AddDays(1), _faker.PickRandom<ActivityFrequency>(), activity).Value;
+        var activityDate = ActivityDate.Build(DateTime.Now, DateTime.Now.AddDays(1), _faker.PickRandom<ActivityFrequency>(), activity).Value!;
         activity.AddDate(activityDate);
 
         Assert.Contains(activityDate, activity.Dates);

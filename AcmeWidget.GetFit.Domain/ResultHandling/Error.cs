@@ -3,12 +3,8 @@
 public class Error
 {
     public string Code { get; }
-    public string Message { get; }
 
-    internal Error(string code)
-    {
-        Code = code;
-    }
+    public string Message { get; }
 
     internal Error(string code, string message)
     {

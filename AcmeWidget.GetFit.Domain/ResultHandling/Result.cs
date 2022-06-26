@@ -3,7 +3,7 @@
 public class Result
 {
     public bool Success { get; private set; }
-    public List<Error> Error { get; private set; }
+    public List<Error> Error { get; private set; } = new();
 
     public Result()
     {
@@ -25,7 +25,7 @@ public class Result
 
 public class Result<T> : Result
 {
-    public T Value { get; private set; }
+    public T? Value { get; private set; }
 
     public Result(T value)
     {

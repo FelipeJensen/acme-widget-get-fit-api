@@ -1,9 +1,7 @@
-﻿using System.Diagnostics;
-using AcmeWidget.GetFit.Application.Activities.Dtos;
+﻿using AcmeWidget.GetFit.Application.Activities.Dtos;
 using AcmeWidget.GetFit.Application.Activities.UseCases.ActivitiesCreation;
 using AcmeWidget.GetFit.Data.ActivityRepositories;
 using AcmeWidget.GetFit.Domain.ResultHandling;
-using AcmeWidget.GetFit.Tests.Domain;
 using AutoBogus;
 using Moq;
 
@@ -48,7 +46,7 @@ public class ActivityCreationTests
         var result = await activityCreation.Create(createActivity);
 
         Assert.False(result.Success);
-        Assert.Equal(Errors.General.EntityAlreadyExists().Code, result.Error.Single().Code);
+        Assert.Equal(Errors.General.EntityAlreadyExists(nameof(Errors.Activity)).Code, result.Error.Single().Code);
     }
 
     [Fact]

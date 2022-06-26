@@ -12,10 +12,13 @@ public class ActivitiesController : ControllerBase
     private readonly ILogger<ActivitiesController> _logger;
     private readonly IActivityCreation _activityCreation;
 
-    public ActivitiesController(IActivityCreation activityCreation, ILogger<ActivitiesController> logger)
+    private readonly BadRequestGenerator _badRequestGenerator;
+
+    public ActivitiesController(IActivityCreation activityCreation, ILogger<ActivitiesController> logger, BadRequestGenerator badRequestGenerator)
     {
         _activityCreation = activityCreation;
         _logger = logger;
+        _badRequestGenerator = badRequestGenerator;
     }
 
     [HttpPost]
@@ -36,6 +39,6 @@ public class ActivitiesController : ControllerBase
             ModelState.AddModelError(error.Code, error.Message);
         }
 
-        return BadRequest(ModelState);
+        return _badRequestGenerator.BadRequest(ControllerContext);
     }
 }
