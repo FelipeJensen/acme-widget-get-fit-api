@@ -26,9 +26,17 @@ public static class Errors
         public const string PeriodFrequencyWithoutEndDateCode = "activityDate.frequency.without.endDate";
 
         public static Error StartDateAfterEndDate(DateTime startDate, DateTime endDate) =>
-            new(StartDateAfterEndDateCode, $"Start Date: \"{startDate}\" can not be after End Date: \"{endDate}\"");
+            new(StartDateAfterEndDateCode, $"Start Date: \"{startDate}\" can not be after End Date: \"{endDate}\".");
 
         public static Error PeriodFrequencyWithoutEndDate() =>
-            new(PeriodFrequencyWithoutEndDateCode, "Period frequency without end date");
+            new(PeriodFrequencyWithoutEndDateCode, "Period frequency without end date.");
+    }
+
+    public static class ActivitySignUp
+    {
+        public const string AlreadySignedUpCode = "activitySignUp.already.signed.up";
+
+        public static Error AlreadySignedUp(string email, string activity) =>
+            new(AlreadySignedUpCode, $"This email '{email}' has already signed up for the '{activity}' activity.");
     }
 }

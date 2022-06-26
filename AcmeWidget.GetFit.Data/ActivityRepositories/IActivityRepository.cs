@@ -1,4 +1,3 @@
-using AcmeWidget.GetFit.Application.Activities.Dtos;
 using AcmeWidget.GetFit.Domain.Activities;
 
 namespace AcmeWidget.GetFit.Data.ActivityRepositories;

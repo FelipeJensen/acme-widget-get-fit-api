@@ -1,4 +1,4 @@
-﻿namespace AcmeWidget.GetFit.Application.Activities.Dtos;
+﻿namespace AcmeWidget.GetFit.Data;
 
 public class Lookup<T>
 {

@@ -1,6 +1,7 @@
 ﻿using AcmeWidget.GetFit.Application.Activities.Dtos;
 using AcmeWidget.GetFit.Application.Activities.UseCases.ActivitiesCreation;
 using AcmeWidget.GetFit.Application.Activities.UseCases.ActivitiesDeletion;
+using AcmeWidget.GetFit.Data;
 using AcmeWidget.GetFit.Data.ActivityRepositories;
 using AcmeWidget.GetFit.Domain.Extensions;
 using Microsoft.AspNetCore.Mvc;
@@ -24,7 +25,8 @@ public class ActivitiesController : ControllerBase
         IActivityCreation activityCreation,
         ErrorResponseBuilder errorResponseBuilder,
         IActivityDeletion activityDeletion,
-        IActivityRepository repository)
+        IActivityRepository repository
+    )
     {
         _logger = logger;
         _errorResponseBuilder = errorResponseBuilder;

@@ -1,5 +1,4 @@
-﻿using AcmeWidget.GetFit.Application.Activities.Dtos;
-using AcmeWidget.GetFit.Domain.Activities;
+﻿using AcmeWidget.GetFit.Domain.Activities;
 using Microsoft.EntityFrameworkCore;
 
 namespace AcmeWidget.GetFit.Data.ActivityRepositories;
@@ -37,10 +36,9 @@ public class ActivityRepository : IActivityRepository
 
     public IEnumerable<ActivityDate?> DatesLookup(long id)
     {
-        var lookups = _context.Activities
-                              .Include(p => p.Dates)
+        var lookups = _context.ActivityDates
                               .AsNoTracking()
-                              .SelectMany(p => p.Dates)
+                              .Where(p => p.ActivityId == id)
                               .ToList();
 
         return lookups;

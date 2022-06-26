@@ -1,12 +1,14 @@
-﻿namespace AcmeWidget.GetFit.Domain.Activities;
+﻿using AcmeWidget.GetFit.Domain.ActivitySignups;
+
+namespace AcmeWidget.GetFit.Domain.Activities;
 
 public class Activity
 {
-    private readonly List<ActivityDate> _activityDates = new();
     public long Id { get; private set; }
     public string Name { get; private set; }
 
-    public IReadOnlyList<ActivityDate> Dates => _activityDates.AsReadOnly();
+    public List<ActivitySignUp> ActivitySignUps { get; set; }
+    public List<ActivityDate> ActivityDates { get; set; } = new();
 
     public Activity(string name)
     {
@@ -15,6 +17,6 @@ public class Activity
 
     public void AddDate(ActivityDate activityDate)
     {
-        _activityDates.Add(activityDate);
+        ActivityDates.Add(activityDate);
     }
 }

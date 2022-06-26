@@ -4,6 +4,7 @@ using AcmeWidget.GetFit.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AcmeWidget.GetFit.Data.Migrations
 {
     [DbContext(typeof(GetFitDbContext))]
-    partial class GetFitDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220626072846_activities-sign-up")]
+    partial class activitiessignup
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

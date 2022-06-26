@@ -1,4 +1,5 @@
 ﻿using AcmeWidget.GetFit.Data.ActivityRepositories;
+using AcmeWidget.GetFit.Data.ActivitySignUpRepositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -11,5 +12,6 @@ public static class Startup
         services.AddDbContext<GetFitDbContext>(options => options.UseSqlServer(connectionString));
 
         services.AddScoped<IActivityRepository, ActivityRepository>();
+        services.AddScoped<IActivitySignUpRepository, ActivitySignUpRepository>();
     }
 }

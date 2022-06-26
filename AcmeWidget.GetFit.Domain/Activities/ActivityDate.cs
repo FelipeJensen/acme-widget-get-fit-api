@@ -1,4 +1,5 @@
-﻿using AcmeWidget.GetFit.Domain.ResultHandling;
+﻿using AcmeWidget.GetFit.Domain.ActivitySignups;
+using AcmeWidget.GetFit.Domain.ResultHandling;
 
 namespace AcmeWidget.GetFit.Domain.Activities;
 
@@ -11,6 +12,8 @@ public class ActivityDate
 
     public long ActivityId { get; set; }
     public Activity Activity { get; set; }
+
+    public List<ActivitySignUp> ActivitySignUps { get; set; }
 
     #region EF
 

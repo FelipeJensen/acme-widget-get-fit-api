@@ -30,6 +30,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+// TODO: Add Global Exception Handling
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
