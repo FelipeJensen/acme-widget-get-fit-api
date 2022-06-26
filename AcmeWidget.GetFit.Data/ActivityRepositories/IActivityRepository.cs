@@ -4,11 +4,11 @@ namespace AcmeWidget.GetFit.Data.ActivityRepositories;
 
 public interface IActivityRepository
 {
-    Task<bool> Exists(string name);
-    Task Persist();
-    Task Add(Activity activity);
+    bool Exists(string name);
     Task<Activity?> Get(long id);
+    Task Add(Activity activity);
     void Delete(Activity activity);
+    Task Persist();
     IEnumerable<Lookup<long>> Lookup();
-    IEnumerable<ActivityDate?> DatesLookup(long id);
+    IEnumerable<ActivityDate?> ActivityDates(long id);
 }

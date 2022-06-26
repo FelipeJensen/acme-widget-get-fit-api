@@ -19,7 +19,7 @@ public class ActivityCreation : IActivityCreation
         var validation = createActivity.Validate();
         if (validation.Any()) return new Result(validation);
 
-        if (await _repository.Exists(createActivity.Name))
+        if (_repository.Exists(createActivity.Name))
         {
             return new Result(Errors.General.EntityAlreadyExists(nameof(Errors.Activity)));
         }

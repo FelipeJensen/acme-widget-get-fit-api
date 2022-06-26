@@ -18,7 +18,7 @@ public class ActivityCreationTests
         _fakeGenerator = new FakeGenerator();
 
         _activityRepository = new Mock<IActivityRepository>();
-        _activityRepository.Setup(p => p.Exists(Cycling)).ReturnsAsync(true);
+        _activityRepository.Setup(p => p.Exists(Cycling)).Returns(true);
     }
 
     [Fact]

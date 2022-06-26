@@ -48,9 +48,9 @@ public class ActivitiesController : ControllerBase
     [Produces(typeof(List<DateLookup>))]
     public IActionResult DatesLookup(long id)
     {
-        var activityDates = _repository.DatesLookup(id);
+        var activityDates = _repository.ActivityDates(id);
 
-        var lookups = activityDates.Select(p => new DateLookup(p.Id, p.StartDate, p.EndDate, p.Frequency));
+        var lookups = activityDates.Select(p => new DateLookup(p!.Id, p.StartDate, p.EndDate, p.Frequency));
 
         return Ok(lookups);
     }
