@@ -1,6 +1,5 @@
 ﻿using AcmeWidget.GetFit.Data;
 using AcmeWidget.GetFit.Data.ActivitySignUpRepositories;
-using AcmeWidget.GetFit.Domain.Activities;
 using AcmeWidget.GetFit.Domain.ActivitySignups;
 using AutoBogus;
 using Moq;

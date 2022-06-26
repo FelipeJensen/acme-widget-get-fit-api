@@ -13,7 +13,7 @@ public class ActivityDate
     public long ActivityId { get; set; }
     public Activity Activity { get; set; }
 
-    public List<ActivitySignUp> ActivitySignUps { get; set; }
+    public List<ActivitySignUp> ActivitySignUps { get; set; } = new();
 
     #region EF
 

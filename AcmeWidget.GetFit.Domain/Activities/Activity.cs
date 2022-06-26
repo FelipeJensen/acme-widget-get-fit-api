@@ -7,7 +7,7 @@ public class Activity
     public long Id { get; private set; }
     public string Name { get; private set; }
 
-    public List<ActivitySignUp> ActivitySignUps { get; set; }
+    public List<ActivitySignUp> ActivitySignUps { get; set; } = new();
     public List<ActivityDate> ActivityDates { get; set; } = new();
 
     public Activity(string name)

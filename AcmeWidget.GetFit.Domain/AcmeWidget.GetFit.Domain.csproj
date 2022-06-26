@@ -10,10 +10,4 @@
       <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.0" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Reference Include="AcmeWidget.GetFit.Domain">
-        <HintPath>..\AcmeWidget.GetFit.Tests\bin\Debug\net6.0\AcmeWidget.GetFit.Domain.dll</HintPath>
-      </Reference>
-    </ItemGroup>
-
 </Project>
