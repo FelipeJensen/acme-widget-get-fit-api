@@ -1,3 +1,4 @@
+using AcmeWidget.GetFit.Application.Activities.Dtos;
 using AcmeWidget.GetFit.Domain.Activities;
 
 namespace AcmeWidget.GetFit.Data.ActivityRepositories;
@@ -9,4 +10,5 @@ public interface IActivityRepository
     Task Add(Activity activity);
     Task<Activity?> Get(long id);
     void Delete(Activity activity);
+    IEnumerable<Lookup<long>> Lookup();
 }

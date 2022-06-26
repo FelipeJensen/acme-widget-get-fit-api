@@ -1,4 +1,5 @@
-﻿using AcmeWidget.GetFit.Domain.Activities;
+﻿using AcmeWidget.GetFit.Application.Activities.Dtos;
+using AcmeWidget.GetFit.Domain.Activities;
 using Microsoft.EntityFrameworkCore;
 
 namespace AcmeWidget.GetFit.Data.ActivityRepositories;
@@ -22,6 +23,11 @@ public class ActivityRepository : IActivityRepository
     public Task<Activity?> Get(long id) => _context.Activities.FindAsync(id).AsTask();
 
     public void Delete(Activity activity) => _context.Activities.Remove(activity);
+
+    public IEnumerable<Lookup<long>> Lookup()
+    {
+        return _context.Activities.AsNoTracking().Select(p => new { p.Id, p.Name }).ToList().Select(p => new Lookup<long>(p.Id, p.Name));
+    }
 
     public Task Persist() => _context.SaveChangesAsync();
 }

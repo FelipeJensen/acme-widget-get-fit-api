@@ -1,9 +1,9 @@
 ﻿using AcmeWidget.GetFit.Application.Activities.Dtos;
 using AcmeWidget.GetFit.Application.Activities.UseCases.ActivitiesCreation;
 using AcmeWidget.GetFit.Application.Activities.UseCases.ActivitiesDeletion;
+using AcmeWidget.GetFit.Data.ActivityRepositories;
 using AcmeWidget.GetFit.Domain.Extensions;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace AcmeWidget.GetFit.Api.Controllers;
 
@@ -17,16 +17,29 @@ public class ActivitiesController : ControllerBase
     private readonly IActivityCreation _activityCreation;
     private readonly IActivityDeletion _activityDeletion;
 
+    private readonly IActivityRepository _repository;
+
     public ActivitiesController(
         ILogger<ActivitiesController> logger,
         IActivityCreation activityCreation,
         ErrorResponseBuilder errorResponseBuilder,
-        IActivityDeletion activityDeletion)
+        IActivityDeletion activityDeletion,
+        IActivityRepository repository)
     {
         _logger = logger;
         _errorResponseBuilder = errorResponseBuilder;
         _activityCreation = activityCreation;
         _activityDeletion = activityDeletion;
+        _repository = repository;
+    }
+
+    [HttpGet("lookup")]
+    [Produces(typeof(List<Lookup<long>>))]
+    public IActionResult Lookup()
+    {
+        var lookup = _repository.Lookup();
+
+        return Ok(lookup);
     }
 
     [HttpPost]
