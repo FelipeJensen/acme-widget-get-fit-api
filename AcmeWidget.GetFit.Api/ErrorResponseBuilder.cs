@@ -13,7 +13,7 @@ public class ErrorResponseBuilder
         _options = options;
     }
 
-    public IActionResult BadRequest(Result result, ControllerBase controller)
+    public IActionResult Build(Result result, ControllerBase controller)
     {
         if (result.Errors.Count == 1 && result.Errors.First().Code == Errors.General.NotFound(string.Empty).Code)
         {

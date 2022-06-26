@@ -3,6 +3,7 @@ using AcmeWidget.GetFit.Application.Activities.UseCases.ActivitiesCreation;
 using AcmeWidget.GetFit.Application.Activities.UseCases.ActivitiesDeletion;
 using AcmeWidget.GetFit.Domain.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace AcmeWidget.GetFit.Api.Controllers;
 
@@ -42,7 +43,7 @@ public class ActivitiesController : ControllerBase
             return NoContent();
         }
 
-        return _errorResponseBuilder.BadRequest(result, this);
+        return _errorResponseBuilder.Build(result, this);
     }
 
     [HttpDelete("{id}")]
@@ -60,6 +61,6 @@ public class ActivitiesController : ControllerBase
             return NoContent();
         }
 
-        return _errorResponseBuilder.BadRequest(result, this);
+        return _errorResponseBuilder.Build(result, this);
     }
 }
