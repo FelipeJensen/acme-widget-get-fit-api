@@ -69,6 +69,8 @@ public class ActivitiesController : ControllerBase
             return NoContent();
         }
 
+        _logger.LogWarning("Failed to create activity {errors}", result.Errors);
+
         return _errorResponseBuilder.Build(result, this);
     }
 
@@ -86,6 +88,8 @@ public class ActivitiesController : ControllerBase
         {
             return NoContent();
         }
+
+        _logger.LogWarning("Failed to delete activity {errors}", result.Errors);
 
         return _errorResponseBuilder.Build(result, this);
     }

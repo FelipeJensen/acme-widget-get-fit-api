@@ -37,6 +37,8 @@ public class ActivitySignUpsController : ControllerBase
             return Ok(createSignUp.ActivityId);
         }
 
+        _logger.LogWarning("Failed to create activity sign up {errors}", result.Errors);
+
         return _errorResponseBuilder.Build(result, this);
     }
 }

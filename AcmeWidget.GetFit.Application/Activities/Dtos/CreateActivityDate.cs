@@ -13,7 +13,10 @@ public class CreateActivityDate
     {
         var errors = new List<Error>();
 
-        // TODO: validate Enum
+        if (!Enum.IsDefined(Frequency))
+        {
+            errors.Add(Errors.General.EnumNotDefined((int)Frequency, nameof(ActivityFrequency)));
+        }
 
         return errors;
     }

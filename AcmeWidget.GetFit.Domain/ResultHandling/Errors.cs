@@ -6,10 +6,14 @@ public static class Errors
     {
         public const string EntityAlreadyExistsCode = "entity.already.exists";
         public const string EntityNotFoundCode = "entity.not.found";
+        public const string EnumNotDefinedCode = "enum.not.defined";
 
         public static Error EntityAlreadyExists(string entity) => new(EntityAlreadyExistsCode, $"{entity} already exists.");
 
         public static Error NotFound(string entity) => new(EntityNotFoundCode, $"{entity} not found.");
+
+        public static Error EnumNotDefined(int enumValue, string enumName)
+            => new(EnumNotDefinedCode, $"Value '{enumValue}' not defined for enum of type '{enumName}'");
     }
 
     public static class Activity
