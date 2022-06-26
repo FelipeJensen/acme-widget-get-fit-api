@@ -26,7 +26,24 @@ public class ActivityRepository : IActivityRepository
 
     public IEnumerable<Lookup<long>> Lookup()
     {
-        return _context.Activities.AsNoTracking().Select(p => new { p.Id, p.Name }).ToList().Select(p => new Lookup<long>(p.Id, p.Name));
+        var lookups = _context.Activities
+                              .AsNoTracking()
+                              .Select(p => new { p.Id, p.Name })
+                              .ToList()
+                              .Select(p => new Lookup<long>(p.Id, p.Name));
+
+        return lookups;
+    }
+
+    public IEnumerable<ActivityDate?> DatesLookup(long id)
+    {
+        var lookups = _context.Activities
+                              .Include(p => p.Dates)
+                              .AsNoTracking()
+                              .SelectMany(p => p.Dates)
+                              .ToList();
+
+        return lookups;
     }
 
     public Task Persist() => _context.SaveChangesAsync();

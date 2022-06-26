@@ -11,4 +11,5 @@ public interface IActivityRepository
     Task<Activity?> Get(long id);
     void Delete(Activity activity);
     IEnumerable<Lookup<long>> Lookup();
+    IEnumerable<ActivityDate?> DatesLookup(long id);
 }

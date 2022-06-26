@@ -42,6 +42,17 @@ public class ActivitiesController : ControllerBase
         return Ok(lookup);
     }
 
+    [HttpGet("{id}/dates/lookup")]
+    [Produces(typeof(List<DateLookup>))]
+    public IActionResult DatesLookup(long id)
+    {
+        var activityDates = _repository.DatesLookup(id);
+
+        var lookups = activityDates.Select(p => new DateLookup(p.Id, p.StartDate, p.EndDate, p.Frequency));
+
+        return Ok(lookups);
+    }
+
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
