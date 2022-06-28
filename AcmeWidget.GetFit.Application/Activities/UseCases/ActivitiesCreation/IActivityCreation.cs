@@ -5,5 +5,5 @@ namespace AcmeWidget.GetFit.Application.Activities.UseCases.ActivitiesCreation;
 
 public interface IActivityCreation
 {
-    Task<Result> Create(CreateActivity createActivity);
+    Task<Result<long>> Create(CreateActivity createActivity);
 }

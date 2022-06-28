@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace AcmeWidget.GetFit.Api.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("activities/{id}/activity-sign-ups")]
 public class ActivitySignUpsController : ControllerBase
 {
     private readonly ILogger<ActivitySignUpsController> _logger;
@@ -34,7 +34,7 @@ public class ActivitySignUpsController : ControllerBase
 
         if (result.Success)
         {
-            return Ok(createSignUp.ActivityId);
+            return Ok(result.Value);
         }
 
         _logger.LogWarning("Failed to create activity sign up {errors}", result.Errors);

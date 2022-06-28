@@ -35,4 +35,8 @@ public class Result<T> : Result
     public Result(Error error) : base(new List<Error> { error })
     {
     }
+
+    public Result(List<Error> validation) : base(validation)
+    {
+    }
 }

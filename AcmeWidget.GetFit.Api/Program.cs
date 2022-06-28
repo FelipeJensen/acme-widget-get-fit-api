@@ -10,7 +10,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers().AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
-builder.Services.AddRouting(options => options.LowercaseUrls = true);
+builder.Services.AddRouting(options =>
+{
+    options.LowercaseUrls = true;
+});
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -33,6 +36,10 @@ if (app.Environment.IsDevelopment())
 // TODO: Add Global Exception Handling
 
 app.UseHttpsRedirection();
+
+app.UseCors(p => p.WithOrigins("http://localhost:4200")
+                  .AllowAnyHeader()
+                  .AllowAnyMethod());
 
 app.UseAuthorization();
 

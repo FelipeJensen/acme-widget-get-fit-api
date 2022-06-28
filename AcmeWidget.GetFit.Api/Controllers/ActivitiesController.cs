@@ -56,7 +56,7 @@ public class ActivitiesController : ControllerBase
     }
 
     [HttpPost]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [Produces(typeof(long))]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Create(CreateActivity createActivity)
     {
@@ -66,7 +66,7 @@ public class ActivitiesController : ControllerBase
 
         if (result.Success)
         {
-            return NoContent();
+            return Ok(result.Value);
         }
 
         _logger.LogWarning("Failed to create activity {errors}", result.Errors);

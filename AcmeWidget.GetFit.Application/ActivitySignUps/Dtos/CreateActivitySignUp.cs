@@ -5,13 +5,6 @@ namespace AcmeWidget.GetFit.Application.ActivitySignUps.Dtos;
 
 public class CreateActivitySignUp
 {
-    public List<Error> Validate()
-    {
-        var errors = new List<Error>();
-
-        return errors;
-    }
-
     public string FirstName { get; set; } = null!;
     public string LastName { get; set; } = null!;
 
@@ -21,5 +14,12 @@ public class CreateActivitySignUp
     public long ActivityId { get; set; }
     public long ActivityDateId { get; set; }
     public int? YearsOfExperienceInActivity { get; set; }
-    public string Comments { get; set; } = null!;
+    public string? Comments { get; set; } = null!;
+
+    public List<Error> Validate()
+    {
+        var errors = new List<Error>();
+		// TODO: validate
+        return errors;
+    }
 }

@@ -5,5 +5,5 @@ namespace AcmeWidget.GetFit.Application.ActivitySignUps.ActivitySignUpsCreation;
 
 public interface IActivitySignUpCreation
 {
-    Task<Result> Create(CreateActivitySignUp createSignUp);
+    Task<Result<long>> Create(CreateActivitySignUp createSignUp);
 }

@@ -14,14 +14,14 @@ public class ActivityCreation : IActivityCreation
         _repository = repository;
     }
 
-    public async Task<Result> Create(CreateActivity createActivity)
+    public async Task<Result<long>> Create(CreateActivity createActivity)
     {
         var validation = createActivity.Validate();
-        if (validation.Any()) return new Result(validation);
+        if (validation.Any()) return new Result<long>(validation);
 
         if (_repository.Exists(createActivity.Name))
         {
-            return new Result(Errors.General.EntityAlreadyExists(nameof(Errors.Activity)));
+            return new Result<long>(Errors.General.EntityAlreadyExists(nameof(Errors.Activity)));
         }
 
         var activity = new Activity(createActivity.Name);
@@ -32,7 +32,7 @@ public class ActivityCreation : IActivityCreation
 
             if (results.Any(p => !p.Success))
             {
-                return new Result(results.Where(p => !p.Success).SelectMany(p => p.Errors).ToList());
+                return new Result<long>(results.Where(p => !p.Success).SelectMany(p => p.Errors).ToList());
             }
 
             foreach (var activityDate in results.Select(p => p.Value!))
@@ -45,6 +45,6 @@ public class ActivityCreation : IActivityCreation
 
         await _repository.Persist();
 
-        return new Result();
+        return new Result<long>(activity.Id);
     }
 }

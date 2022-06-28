@@ -17,20 +17,20 @@ public class ActivitySignUpCreation : IActivitySignUpCreation
         _activityRepository = activityRepository;
     }
 
-    public async Task<Result> Create(CreateActivitySignUp createSignUp)
+    public async Task<Result<long>> Create(CreateActivitySignUp createSignUp)
     {
         var validation = createSignUp.Validate();
-        if (validation.Any()) return new Result(validation);
+        if (validation.Any()) return new Result<long>(validation);
 
         var activity = await _activityRepository.Get(createSignUp.ActivityId);
 
-        if (activity == null) return new Result(Errors.General.NotFound(nameof(Errors.Activity)));
+        if (activity == null) return new Result<long>(Errors.General.NotFound(nameof(Errors.Activity)));
 
         var activityDate = await _activityRepository.GetDate(createSignUp.ActivityDateId);
 
-        if (activityDate == null) return new Result(Errors.General.NotFound(nameof(Errors.ActivityDate)));
+        if (activityDate == null) return new Result<long>(Errors.General.NotFound(nameof(Errors.ActivityDate)));
 
-        if (AlreadySignedUp(createSignUp)) return new Result(Errors.ActivitySignUp.AlreadySignedUp(createSignUp.Email, activity.Name));
+        if (AlreadySignedUp(createSignUp)) return new Result<long>(Errors.ActivitySignUp.AlreadySignedUp(createSignUp.Email, activity.Name));
 
         var activitySignUp = new ActivitySignUp(
             createSignUp.FirstName,
@@ -48,7 +48,7 @@ public class ActivitySignUpCreation : IActivitySignUpCreation
 
         // TODO: send confirmation email with unsubscribe code
 
-        return new Result();
+        return new Result<long>(activitySignUp.Id);
     }
 
     private bool AlreadySignedUp(CreateActivitySignUp createSignUp)

@@ -41,6 +41,6 @@ public static class Errors
         public const string AlreadySignedUpCode = "activitySignUp.already.signed.up";
 
         public static Error AlreadySignedUp(string email, string activity) =>
-            new(AlreadySignedUpCode, $"This email '{email}' has already signed up for the '{activity}' activity.");
+            new(AlreadySignedUpCode, $"The email '{email}' has already signed up for the '{activity}' activity.");
     }
 }
