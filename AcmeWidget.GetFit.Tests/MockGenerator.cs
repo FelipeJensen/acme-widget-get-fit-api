@@ -5,7 +5,7 @@ using Bogus;
 
 namespace AcmeWidget.GetFit.Tests;
 
-public class FakeGenerator
+public class MockGenerator
 {
     private readonly Faker _faker = new();
 

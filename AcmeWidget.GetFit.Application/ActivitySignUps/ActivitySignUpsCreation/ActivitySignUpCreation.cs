@@ -53,6 +53,6 @@ public class ActivitySignUpCreation : IActivitySignUpCreation
 
     private bool AlreadySignedUp(CreateActivitySignUp createSignUp)
     {
-        return _repository.Exists(createSignUp.Email, createSignUp.ActivityId);
+        return _repository.Exists(createSignUp.Email, createSignUp.ActivityDateId);
     }
 }

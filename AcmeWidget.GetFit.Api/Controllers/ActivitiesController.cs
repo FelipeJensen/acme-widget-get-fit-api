@@ -41,7 +41,7 @@ public class ActivitiesController : ControllerBase
     {
         var lookup = _repository.Lookup();
 
-        return Ok(lookup);
+        return Ok(lookup.OrderBy(p => p.Value));
     }
 
     [HttpGet("{id}/dates/lookup")]
@@ -52,7 +52,7 @@ public class ActivitiesController : ControllerBase
 
         var lookups = activityDates.Select(p => new DateLookup(p!.Id, p.StartDate, p.EndDate, p.Frequency));
 
-        return Ok(lookups);
+        return Ok(lookups.OrderBy(p => p.StartDate));
     }
 
     [HttpPost]

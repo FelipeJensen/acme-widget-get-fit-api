@@ -19,7 +19,22 @@ public class CreateActivitySignUp
     public List<Error> Validate()
     {
         var errors = new List<Error>();
-		// TODO: validate
+
+        if (string.IsNullOrWhiteSpace(FirstName))
+        {
+            errors.Add(Errors.General.Required("First name"));
+        }
+
+        if (string.IsNullOrWhiteSpace(LastName))
+        {
+            errors.Add(Errors.General.Required("Last name"));
+        }
+
+        if (string.IsNullOrWhiteSpace(Email))
+        {
+            errors.Add(Errors.General.Required("Email"));
+        }
+
         return errors;
     }
 }

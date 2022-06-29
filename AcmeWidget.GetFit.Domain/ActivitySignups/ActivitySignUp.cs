@@ -12,7 +12,7 @@ public class ActivitySignUp
     public string? Comments { get; private set; }
 
     public long ActivityId { get; set; }
-    public Activity Activity { get; private set; }
+    public Activity Activity { get; set; }
 
     public long ActivityDateId { get; set; }
     public ActivityDate ActivityDate { get; private set; }

@@ -1,4 +1,5 @@
 ﻿using AcmeWidget.GetFit.Application.ActivitySignUps.ActivitySignUpsCreation;
+using AcmeWidget.GetFit.Application.ActivitySignUps.ActivitySignUpsQuery;
 using AcmeWidget.GetFit.Application.ActivitySignUps.Dtos;
 using AcmeWidget.GetFit.Domain.Extensions;
 using Microsoft.AspNetCore.Mvc;
@@ -6,27 +7,40 @@ using Microsoft.AspNetCore.Mvc;
 namespace AcmeWidget.GetFit.Api.Controllers;
 
 [ApiController]
-[Route("activities/{id}/activity-sign-ups")]
 public class ActivitySignUpsController : ControllerBase
 {
     private readonly ILogger<ActivitySignUpsController> _logger;
     private readonly ErrorResponseBuilder _errorResponseBuilder;
 
     private readonly IActivitySignUpCreation _activitySignUpCreation;
+    private readonly IActivitySignUpQuery _activitySignUpQuery;
 
     public ActivitySignUpsController(
         ILogger<ActivitySignUpsController> logger,
         ErrorResponseBuilder errorResponseBuilder,
-        IActivitySignUpCreation activitySignUpCreation
+        IActivitySignUpCreation activitySignUpCreation,
+        IActivitySignUpQuery activitySignUpQuery
     )
     {
         _logger = logger;
         _errorResponseBuilder = errorResponseBuilder;
         _activitySignUpCreation = activitySignUpCreation;
+        _activitySignUpQuery = activitySignUpQuery;
     }
 
-    [HttpPost]
-    public async Task<IActionResult> Create(CreateActivitySignUp createSignUp)
+    [HttpGet]
+    [Route("activity-sign-ups")]
+    [Produces(typeof(List<ActivityFiltered>))]
+    public async Task<IActionResult> Get(string? name, long? activityId, long? activityDateId)
+    {
+        var activitySignUps = await _activitySignUpQuery.Filtered(name, activityId, activityDateId);
+
+        return Ok(activitySignUps);
+    }
+
+    [HttpPost("activities/{id}/activity-sign-ups")]
+    [Produces(typeof(long))]
+    public async Task<IActionResult> Create(long id, CreateActivitySignUp createSignUp)
     {
         _logger.LogBody(createSignUp);
 

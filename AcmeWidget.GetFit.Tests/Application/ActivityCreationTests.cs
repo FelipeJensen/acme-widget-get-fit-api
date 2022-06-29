@@ -11,11 +11,11 @@ public class ActivityCreationTests
 {
     private readonly Mock<IActivityRepository> _activityRepository;
     private const string Cycling = "Cycling";
-    private readonly FakeGenerator _fakeGenerator;
+    private readonly MockGenerator _mockGenerator;
 
     public ActivityCreationTests()
     {
-        _fakeGenerator = new FakeGenerator();
+        _mockGenerator = new MockGenerator();
 
         _activityRepository = new Mock<IActivityRepository>();
         _activityRepository.Setup(p => p.Exists(Cycling)).Returns(true);
@@ -54,7 +54,7 @@ public class ActivityCreationTests
     {
         var createActivity = AutoFaker.Generate<CreateActivity>();
         createActivity.Dates.Clear();
-        createActivity.Dates.Add(_fakeGenerator.InvalidCreateActivityDate);
+        createActivity.Dates.Add(_mockGenerator.InvalidCreateActivityDate);
 
         var activityCreation = new ActivityCreation(_activityRepository.Object);
 
@@ -69,7 +69,7 @@ public class ActivityCreationTests
     {
         var createActivity = AutoFaker.Generate<CreateActivity>();
         createActivity.Dates.Clear();
-        createActivity.Dates.Add(_fakeGenerator.CreateActivityDate);
+        createActivity.Dates.Add(_mockGenerator.CreateActivityDate);
 
         var activityCreation = new ActivityCreation(_activityRepository.Object);
 

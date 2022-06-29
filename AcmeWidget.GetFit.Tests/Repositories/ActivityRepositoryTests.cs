@@ -10,12 +10,12 @@ namespace AcmeWidget.GetFit.Tests.Repositories;
 public class ActivityRepositoryTests
 {
     private readonly Faker _faker;
-    private readonly FakeGenerator _fakeGenerator;
+    private readonly MockGenerator _mockGenerator;
 
     public ActivityRepositoryTests()
     {
         _faker = new Faker();
-        _fakeGenerator = new FakeGenerator();
+        _mockGenerator = new MockGenerator();
     }
 
     [Fact]
@@ -152,7 +152,7 @@ public class ActivityRepositoryTests
     [Fact]
     public async Task GetDate_with_existing_entity_returns_entity()
     {
-        var activityDate = _fakeGenerator.ActivityDate;
+        var activityDate = _mockGenerator.ActivityDate;
 
         var contextMock = new Mock<IGetFitDbContext>();
         contextMock.Setup(p => p.FindAsync<ActivityDate, long>(activityDate.Id)).ReturnsAsync(activityDate);
@@ -167,7 +167,7 @@ public class ActivityRepositoryTests
     [Fact]
     public async Task GetDate_with_non_existing_entity_returns_null()
     {
-        var activityDate = _fakeGenerator.ActivityDate;
+        var activityDate = _mockGenerator.ActivityDate;
 
         var contextMock = new Mock<IGetFitDbContext>();
         contextMock.Setup(p => p.FindAsync<Activity, long>(activityDate.Id)).ReturnsAsync(() => null);

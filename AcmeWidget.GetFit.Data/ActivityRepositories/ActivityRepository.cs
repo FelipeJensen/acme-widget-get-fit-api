@@ -21,6 +21,8 @@ public class ActivityRepository : IActivityRepository
     public IEnumerable<Lookup<long>> Lookup()
     {
         var lookups = _context.Query<Activity>()
+                              .Include(p => p.ActivityDates)
+                              .Where(p => p.ActivityDates.Any())
                               .AsNoTracking()
                               .Select(p => new Lookup<long>(p.Id, p.Name));
 

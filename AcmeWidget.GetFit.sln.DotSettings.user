@@ -1,5 +1,16 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/Environment/Highlighting/HighlightingSourceSnapshotLocation/@EntryValue">C:\Users\jense\AppData\Local\JetBrains\Rider2022.1\resharper-host\temp\Rider\vAny\CoverageData\_AcmeWidget.GetFit.1743923287\Snapshot\snapshot.utdcvr</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=3cf78dfe_002D39c2_002D41d0_002D9038_002D13373b3e10b9/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="With_non_existing_activityDate_is_invalid" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::68A65DAC-B157-429E-95D0-0AA1DF9E5B61::net6.0::AcmeWidget.GetFit.Tests.Application.ActivitySignUpCreationTests&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
 	
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=7430f49b_002Ddb7a_002D4db0_002D8f63_002D61fb35624613/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="If_EndDate_Ignore_Frequency" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;Project Location="C:\Users\jense\Desktop\OCAS\AcmeWidget.GetFit\AcmeWidget.GetFit.Tests" Presentation="&amp;lt;AcmeWidget.GetFit.Tests&amp;gt;" /&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=7430f49b_002Ddb7a_002D4db0_002D8f63_002D61fb35624613/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="If_EndDate_Ignore_Frequency" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::68A65DAC-B157-429E-95D0-0AA1DF9E5B61::net6.0::AcmeWidget.GetFit.Tests.Repositories.ActivitySignUpRepositoryTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::68A65DAC-B157-429E-95D0-0AA1DF9E5B61::net6.0::AcmeWidget.GetFit.Tests.Application.ActivitySignUpCreationTests.With_empty_firstName_is_invalid&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::68A65DAC-B157-429E-95D0-0AA1DF9E5B61::net6.0::AcmeWidget.GetFit.Tests.Application.ActivitySignUpCreationTests.With_empty_lastName_is_invalid&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::68A65DAC-B157-429E-95D0-0AA1DF9E5B61::net6.0::AcmeWidget.GetFit.Tests.Application.ActivitySignUpCreationTests&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

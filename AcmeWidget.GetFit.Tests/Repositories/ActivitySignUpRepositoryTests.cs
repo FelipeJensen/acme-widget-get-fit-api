@@ -18,7 +18,7 @@ public class ActivitySignUpRepositoryTests
 
         var activityRepository = new ActivitySignUpRepository(contextMock.Object);
 
-        var actual = activityRepository.Exists(activitySignUp.Email, activitySignUp.ActivityId);
+        var actual = activityRepository.Exists(activitySignUp.Email, activitySignUp.ActivityDateId);
 
         Assert.True(actual);
     }
@@ -32,7 +32,7 @@ public class ActivitySignUpRepositoryTests
         var activityRepository = new ActivitySignUpRepository(contextMock.Object);
 
         var activitySignUp = AutoFaker.Generate<ActivitySignUp>();
-        var actual = activityRepository.Exists(activitySignUp.Email, activitySignUp.ActivityId);
+        var actual = activityRepository.Exists(activitySignUp.Email, activitySignUp.ActivityDateId);
 
         Assert.False(actual);
     }
