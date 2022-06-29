@@ -121,6 +121,8 @@ public class ActivityRepositoryTests
             AutoFaker.Generate<Activity>(),
             AutoFaker.Generate<Activity>(),
         };
+        
+        activities.ForEach(p => p.AddDate(_mockGenerator.ActivityDate));
 
         var contextMock = new Mock<IGetFitDbContext>();
         contextMock.Setup(p => p.Query<Activity>()).Returns(activities.AsQueryable);
