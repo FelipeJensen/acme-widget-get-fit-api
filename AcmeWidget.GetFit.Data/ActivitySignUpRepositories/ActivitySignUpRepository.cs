@@ -25,7 +25,7 @@ public class ActivitySignUpRepository : IActivitySignUpRepository
     {
         var activities = await _context.Query<Activity>()
                                        .Include(p => p.ActivityDates)
-                                       .Include(p => p.ActivitySignUps)
+                                       .Include(p => p.ActivitySignUps.Where(m => string.IsNullOrWhiteSpace(name) || m.FirstName.Contains(name) || m.LastName.Contains(name)))
                                        .Where(p => activityId == null || p.Id == activityId)
                                        .Where(p => activityDateId == null || p.ActivityDates.Any(k => k.Id == activityDateId))
                                        .Where(p => p.ActivitySignUps.Any(m => string.IsNullOrWhiteSpace(name) || m.FirstName.Contains(name) || m.LastName.Contains(name)))
