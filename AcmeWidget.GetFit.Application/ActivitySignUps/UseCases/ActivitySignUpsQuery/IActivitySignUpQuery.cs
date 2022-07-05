@@ -1,6 +1,6 @@
 using AcmeWidget.GetFit.Application.ActivitySignUps.Dtos;
 
-namespace AcmeWidget.GetFit.Application.ActivitySignUps.ActivitySignUpsQuery;
+namespace AcmeWidget.GetFit.Application.ActivitySignUps.UseCases.ActivitySignUpsQuery;
 
 public interface IActivitySignUpQuery
 {

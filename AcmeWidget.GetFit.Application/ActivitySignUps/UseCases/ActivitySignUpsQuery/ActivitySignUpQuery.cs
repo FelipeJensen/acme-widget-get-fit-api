@@ -1,7 +1,7 @@
 ﻿using AcmeWidget.GetFit.Application.ActivitySignUps.Dtos;
 using AcmeWidget.GetFit.Data.ActivitySignUpRepositories;
 
-namespace AcmeWidget.GetFit.Application.ActivitySignUps.ActivitySignUpsQuery;
+namespace AcmeWidget.GetFit.Application.ActivitySignUps.UseCases.ActivitySignUpsQuery;
 
 public class ActivitySignUpQuery : IActivitySignUpQuery
 {
@@ -25,7 +25,7 @@ public class ActivitySignUpQuery : IActivitySignUpQuery
                     k.StartDate,
                     k.EndDate,
                     k.Frequency,
-                    k.ActivitySignUps.OrderBy(or => or.FirstName).ThenBy(p => p.LastName).Select(m =>
+                    k.ActivitySignUps.OrderBy(or => or.FirstName).ThenBy(m => m.LastName).Select(m =>
                         new ActivitySignUpFiltered(
                             m.Id,
                             m.FirstName,

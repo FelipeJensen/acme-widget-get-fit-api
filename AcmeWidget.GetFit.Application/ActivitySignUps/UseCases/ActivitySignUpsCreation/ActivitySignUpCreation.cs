@@ -4,7 +4,7 @@ using AcmeWidget.GetFit.Data.ActivitySignUpRepositories;
 using AcmeWidget.GetFit.Domain.ActivitySignups;
 using AcmeWidget.GetFit.Domain.ResultHandling;
 
-namespace AcmeWidget.GetFit.Application.ActivitySignUps.ActivitySignUpsCreation;
+namespace AcmeWidget.GetFit.Application.ActivitySignUps.UseCases.ActivitySignUpsCreation;
 
 public class ActivitySignUpCreation : IActivitySignUpCreation
 {

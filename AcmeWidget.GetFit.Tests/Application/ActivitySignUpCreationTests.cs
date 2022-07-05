@@ -1,5 +1,5 @@
-﻿using AcmeWidget.GetFit.Application.ActivitySignUps.ActivitySignUpsCreation;
-using AcmeWidget.GetFit.Application.ActivitySignUps.Dtos;
+﻿using AcmeWidget.GetFit.Application.ActivitySignUps.Dtos;
+using AcmeWidget.GetFit.Application.ActivitySignUps.UseCases.ActivitySignUpsCreation;
 using AcmeWidget.GetFit.Data.ActivityRepositories;
 using AcmeWidget.GetFit.Data.ActivitySignUpRepositories;
 using AcmeWidget.GetFit.Domain.Activities;
@@ -108,7 +108,7 @@ public class ActivitySignUpCreationTests
     {
         var activity = AutoFaker.Generate<Activity>();
 
-        var activityDate = _mockGenerator.ActivityDate;
+        var activityDate = _mockGenerator.ActivityDateMock();
 
         _activityRepoMock.Setup(p => p.Get(activity.Id)).ReturnsAsync(activity);
         _activityRepoMock.Setup(p => p.GetDate(activityDate.Id)).ReturnsAsync(activityDate);
@@ -133,7 +133,7 @@ public class ActivitySignUpCreationTests
         var activity = AutoFaker.Generate<Activity>();
         activity.ActivityDates.Clear();
 
-        var activityDate = _mockGenerator.ActivityDate;
+        var activityDate = _mockGenerator.ActivityDateMock();
 
         var createActivitySignUp = AutoFaker.Generate<CreateActivitySignUp>();
         createActivitySignUp.ActivityId = activity.Id;
@@ -157,7 +157,7 @@ public class ActivitySignUpCreationTests
         var activity = AutoFaker.Generate<Activity>();
         activity.ActivityDates.Clear();
 
-        var activityDate = _mockGenerator.ActivityDate;
+        var activityDate = _mockGenerator.ActivityDateMock();
 
         var createActivitySignUp = AutoFaker.Generate<CreateActivitySignUp>();
         createActivitySignUp.ActivityId = activity.Id;

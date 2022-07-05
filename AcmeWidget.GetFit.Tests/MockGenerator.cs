@@ -23,11 +23,48 @@ public class MockGenerator
         Frequency = _faker.PickRandom<ActivityFrequency>()
     };
 
-    public ActivityDate ActivityDate =>
-        ActivityDate.Build(
-                        DateTime.Now,
-                        DateTime.Now.AddDays(1),
-                        _faker.PickRandom<ActivityFrequency>(),
-                        AutoFaker.Generate<Activity>())
-                    .Value!;
+    public ActivityDate ActivityDateMock()
+    {
+        var activityDate = ActivityDate.Build(
+                                           DateTime.Now,
+                                           DateTime.Now.AddDays(1),
+                                           _faker.PickRandom<ActivityFrequency>(),
+                                           AutoFaker.Generate<Activity>())
+                                       .Value!;
+
+        var id = activityDate.GetType().GetProperty(nameof(activityDate.Id));
+        id!.SetValue(activityDate, _faker.Random.Long());
+
+        return activityDate;
+    }
+
+    public ActivityDate ActivityDateMock(Activity activity)
+    {
+        var activityDate = ActivityDate.Build(
+                                           DateTime.Now,
+                                           DateTime.Now.AddDays(1),
+                                           _faker.PickRandom<ActivityFrequency>(),
+                                           activity)
+                                       .Value!;
+
+        var id = activityDate.GetType().GetProperty(nameof(activityDate.Id));
+        id!.SetValue(activityDate, _faker.Random.Long());
+
+        var activityId = activityDate.GetType().GetProperty(nameof(activityDate.ActivityId));
+        activityId!.SetValue(activityDate, activity.Id);
+
+        return activityDate;
+    }
+
+    public Activity FullActivity()
+    {
+        var activity = AutoFaker.Generate<Activity>();
+
+        var activityDate = ActivityDateMock(activity);
+        activityDate.ActivitySignUps = activity.ActivitySignUps;
+
+        activity.ActivityDates = new List<ActivityDate> { activityDate };
+
+        return activity;
+    }
 }

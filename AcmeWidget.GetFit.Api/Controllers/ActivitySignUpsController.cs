@@ -1,6 +1,6 @@
-﻿using AcmeWidget.GetFit.Application.ActivitySignUps.ActivitySignUpsCreation;
-using AcmeWidget.GetFit.Application.ActivitySignUps.ActivitySignUpsQuery;
-using AcmeWidget.GetFit.Application.ActivitySignUps.Dtos;
+﻿using AcmeWidget.GetFit.Application.ActivitySignUps.Dtos;
+using AcmeWidget.GetFit.Application.ActivitySignUps.UseCases.ActivitySignUpsCreation;
+using AcmeWidget.GetFit.Application.ActivitySignUps.UseCases.ActivitySignUpsQuery;
 using AcmeWidget.GetFit.Domain.Extensions;
 using Microsoft.AspNetCore.Mvc;
 

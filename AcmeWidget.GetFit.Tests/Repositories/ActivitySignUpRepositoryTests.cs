@@ -1,13 +1,25 @@
 ﻿using AcmeWidget.GetFit.Data;
 using AcmeWidget.GetFit.Data.ActivitySignUpRepositories;
+using AcmeWidget.GetFit.Domain.Activities;
 using AcmeWidget.GetFit.Domain.ActivitySignups;
 using AutoBogus;
+using Bogus;
+using MockQueryable.Moq;
 using Moq;
 
 namespace AcmeWidget.GetFit.Tests.Repositories;
 
 public class ActivitySignUpRepositoryTests
 {
+    private readonly MockGenerator _mockGenerator;
+    private readonly Faker _faker;
+
+    public ActivitySignUpRepositoryTests()
+    {
+        _mockGenerator = new MockGenerator();
+        _faker = new Faker();
+    }
+
     [Fact]
     public void Exists_with_existing_entity_succeeds()
     {
@@ -89,5 +101,93 @@ public class ActivitySignUpRepositoryTests
         activityRepository.Persist();
 
         contextMock.Verify(m => m.SaveChangesAsync(), Times.Once());
+    }
+
+    [Fact]
+    public async Task GetActivitiesWithSignUp_filters_by_firstName()
+    {
+        var expected = _faker.Name.FirstName();
+
+        var ac1 = _mockGenerator.FullActivity();
+
+        var activity = _mockGenerator.FullActivity();
+        ac1.ActivitySignUps.Add(new ActivitySignUp(expected, _faker.Random.Word(), _faker.Internet.Email(), activity, activity.ActivityDates.First(), null, null));
+
+        var ac2 = _mockGenerator.FullActivity();
+
+        var contextMock = new Mock<IGetFitDbContext>();
+        var activities = new List<Activity> { ac1, ac2 };
+
+        contextMock.Setup(p => p.Query<Activity>()).Returns(activities.BuildMock());
+
+        var activitySignUpRepository = new ActivitySignUpRepository(contextMock.Object);
+        var activitiesWithSignUp = await activitySignUpRepository.GetActivitiesWithSignUp(expected, null, null);
+
+        Assert.NotNull(activitiesWithSignUp.Single(p => p.ActivitySignUps.SingleOrDefault(k => k.FirstName == expected) != null));
+    }
+
+    [Fact]
+    public async Task GetActivitiesWithSignUp_filters_by_lastName()
+    {
+        var expected = _faker.Name.LastName();
+
+        var ac1 = _mockGenerator.FullActivity();
+
+        var activity = _mockGenerator.FullActivity();
+        ac1.ActivitySignUps.Add(new ActivitySignUp(_faker.Random.Word(), expected, _faker.Internet.Email(), activity, activity.ActivityDates.First(), null, null));
+
+        var ac2 = _mockGenerator.FullActivity();
+
+        var contextMock = new Mock<IGetFitDbContext>();
+        var activities = new List<Activity> { ac1, ac2 };
+
+        contextMock.Setup(p => p.Query<Activity>()).Returns(activities.BuildMock());
+
+        var activitySignUpRepository = new ActivitySignUpRepository(contextMock.Object);
+        var activitiesWithSignUp = await activitySignUpRepository.GetActivitiesWithSignUp(expected, null, null);
+
+        Assert.NotNull(activitiesWithSignUp.Single(p => p.ActivitySignUps.SingleOrDefault(k => k.LastName == expected) != null));
+    }
+
+    [Fact]
+    public async Task GetActivitiesWithSignUp_filters_by_activity()
+    {
+        var ac1 = _mockGenerator.FullActivity();
+
+        var activity = _mockGenerator.FullActivity();
+        ac1.ActivitySignUps.Add(new ActivitySignUp(_faker.Random.Word(), _faker.Name.LastName(), _faker.Internet.Email(), activity, activity.ActivityDates.First(), null, null));
+
+        var ac2 = _mockGenerator.FullActivity();
+
+        var contextMock = new Mock<IGetFitDbContext>();
+        var activities = new List<Activity> { ac1, ac2 };
+
+        contextMock.Setup(p => p.Query<Activity>()).Returns(activities.BuildMock());
+
+        var activitySignUpRepository = new ActivitySignUpRepository(contextMock.Object);
+        var activitiesWithSignUp = await activitySignUpRepository.GetActivitiesWithSignUp(null, ac2.Id, null);
+
+        Assert.NotNull(activitiesWithSignUp.Single(p => p.Id == ac2.Id));
+    }
+
+    [Fact]
+    public async Task GetActivitiesWithSignUp_filters_by_activityDate()
+    {
+        var ac1 = _mockGenerator.FullActivity();
+
+        var activity = _mockGenerator.FullActivity();
+        ac1.ActivitySignUps.Add(new ActivitySignUp(_faker.Random.Word(), _faker.Name.LastName(), _faker.Internet.Email(), activity, activity.ActivityDates.First(), null, null));
+
+        var ac2 = _mockGenerator.FullActivity();
+
+        var contextMock = new Mock<IGetFitDbContext>();
+        var activities = new List<Activity> { ac1, ac2 };
+
+        contextMock.Setup(p => p.Query<Activity>()).Returns(activities.BuildMock());
+
+        var activitySignUpRepository = new ActivitySignUpRepository(contextMock.Object);
+        var activitiesWithSignUp = await activitySignUpRepository.GetActivitiesWithSignUp(null, null, ac2.ActivityDates.First().Id);
+
+        Assert.NotNull(activitiesWithSignUp.Single(p => p.ActivityDates.First().Id == ac2.ActivityDates.First().Id));
     }
 }

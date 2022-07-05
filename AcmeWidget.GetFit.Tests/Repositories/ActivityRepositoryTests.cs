@@ -121,8 +121,8 @@ public class ActivityRepositoryTests
             AutoFaker.Generate<Activity>(),
             AutoFaker.Generate<Activity>(),
         };
-        
-        activities.ForEach(p => p.AddDate(_mockGenerator.ActivityDate));
+
+        activities.ForEach(p => p.AddDate(_mockGenerator.ActivityDateMock()));
 
         var contextMock = new Mock<IGetFitDbContext>();
         contextMock.Setup(p => p.Query<Activity>()).Returns(activities.AsQueryable);
@@ -154,7 +154,7 @@ public class ActivityRepositoryTests
     [Fact]
     public async Task GetDate_with_existing_entity_returns_entity()
     {
-        var activityDate = _mockGenerator.ActivityDate;
+        var activityDate = _mockGenerator.ActivityDateMock();
 
         var contextMock = new Mock<IGetFitDbContext>();
         contextMock.Setup(p => p.FindAsync<ActivityDate, long>(activityDate.Id)).ReturnsAsync(activityDate);
@@ -169,7 +169,7 @@ public class ActivityRepositoryTests
     [Fact]
     public async Task GetDate_with_non_existing_entity_returns_null()
     {
-        var activityDate = _mockGenerator.ActivityDate;
+        var activityDate = _mockGenerator.ActivityDateMock();
 
         var contextMock = new Mock<IGetFitDbContext>();
         contextMock.Setup(p => p.FindAsync<Activity, long>(activityDate.Id)).ReturnsAsync(() => null);

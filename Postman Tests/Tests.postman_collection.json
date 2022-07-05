@@ -1,0 +1,323 @@
+{
+	"info": {
+		"_postman_id": "8cb986ce-4e0e-4dbf-bff3-5b5c4bd34b89",
+		"name": "Tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "10225157"
+	},
+	"item": [
+		{
+			"name": "Activities",
+			"item": [
+				{
+					"name": "Create Activity",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.collectionVariables.set(\"lastCreatedActivityId\", pm.response.json());\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"{{$randomWord}}\",\r\n    \"dates\": [\r\n        {\r\n            \"startDate\": \"2022-06-26\",\r\n            \"endDate\": \"2022-07-26\",\r\n            \"frequency\": \"Period\"\r\n        },\r\n        {\r\n            \"startDate\": \"2022-07-05\",\r\n            \"frequency\": \"Daily\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/activities",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"activities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Activity To Be Deleted",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.collectionVariables.set(\"activityToBeDeletedId\", pm.response.json());\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"{{activityToBeDeleted}}\",\r\n    \"dates\": [\r\n        {\r\n            \"startDate\": \"2022-06-26\",\r\n            \"endDate\": \"2022-07-26\",\r\n            \"frequency\": \"Period\"\r\n        },\r\n        {\r\n            \"startDate\": \"2022-07-05\",\r\n            \"frequency\": \"Daily\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/activities",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"activities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Activity Lookup",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.response.to.have.jsonBody();\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/activities/lookup",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"activities",
+								"lookup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Dates Lookup",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/activities/{{lastCreatedActivityId}}/dates/lookup",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"activities",
+								"{{lastCreatedActivityId}}",
+								"dates",
+								"lookup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Activity",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/activities/{{activityToBeDeletedId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"activities",
+								"{{activityToBeDeletedId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ActivitySignUps",
+			"item": [
+				{
+					"name": "Create Activity Sign Up",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var baseUrl = pm.collectionVariables.get(\"baseUrl\");\r",
+									"var activityId = pm.collectionVariables.get(\"lastCreatedActivityId\");\r",
+									"\r",
+									"pm.sendRequest(`${baseUrl}/activities/${activityId}/dates/lookup`, function(err, response){\r",
+									"    pm.variables.set(\"activityDateId\", response.json()[0].id);    \r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"\r",
+									"    pm.collectionVariables.set(\"lastCreatedActivitySignUpId\", pm.response.json());\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"firstName\": \"{{$randomFirstName}}\",\r\n  \"lastName\": \"{{$randomLastName}}\",\r\n  \"email\": \"{{$randomEmail}}\",\r\n  \"activityId\": {{lastCreatedActivityId}},\r\n  \"activityDateId\": \"{{activityDateId}}\",\r\n  \"yearsOfExperienceInActivity\": {{$randomInt}},\r\n  \"comments\": \"{{$randomLoremWords}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/activities/{{lastCreatedActivityId}}/activity-sign-ups",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"activities",
+								"{{lastCreatedActivityId}}",
+								"activity-sign-ups"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Sign Ups",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/activity-sign-ups",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"activity-sign-ups"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.collectionVariables.set(\"activityToBeDeletedName\", \"This Activity Will Be Deleted\")"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://localhost:7192",
+			"type": "string"
+		},
+		{
+			"key": "lastCreatedActivityId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "activityToBeDeletedId",
+			"value": ""
+		},
+		{
+			"key": "activityToBeDeletedName",
+			"value": ""
+		},
+		{
+			"key": "lastCreatedActivitySignUpId",
+			"value": ""
+		}
+	]
+}
